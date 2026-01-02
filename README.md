@@ -9,7 +9,7 @@ What is Aetheris?
 Aetheris is a decentralised digital currency with near-instant transaction speeds and negligible transaction fees built upon Proof of Stake 3.0 (PoSV3, BPoS) as
 introduced by the Aetheris development team.
 
-For more information about Aetheris itself, see https://aetheris.org.
+For more information about Aetheris itself, see https://aetherischain.com.
 
 What is Aetheris?
 ----------------

@@ -62,3 +62,75 @@ Changes should be tested by somebody other than the developer who wrote the
 code. This is especially important for large or high-risk changes. It is useful
 to add a test plan to the pull request description if testing the changes is
 not straightforward.
+
+
+Tutorial - Compile Linux wallet on Ubuntu Server 22.04
+Compile a wallet for Ubuntu Linux on Ubuntu Server 22.04 with the following tutorial.
+
+Update your Ubuntu server with the following command:
+
+sudo apt-get update && sudo apt-get upgrade -y
+
+Install the required dependencies with the following command:
+
+sudo apt-get install make automake cmake curl g++-multilib libtool binutils-gold bsdmainutils pkg-config python3 patch bison -y
+
+Create your source code directory with the following commands:
+
+cd ~/
+mkdir source_code
+cd source_code
+
+Download the source code of your coin with the following command:
+
+git clone https://github.com/aetherischain/aetheris-source.git
+
+Type the following command to extract the tar file:
+
+tar -xzvf aetheris-source.tar.gz
+
+Type the following command to download the update for Boost:
+
+wget https://raw.githubusercontent.com/walletbuilders/source-patches/master/scrypt-pos/13.2.0/boost_fix_scrypt_pos_1320.diff
+
+Type the following command to update Boost:
+
+patch -p1 < boost_fix_scrypt_pos_1320.diff
+
+64-bit
+
+Build x86_64-pc-linux-gnu with the following commands:
+
+PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g')
+cd depends
+make HOST=x86_64-pc-linux-gnu
+cd ..
+
+Type the following commands to compile your wallet for Ubuntu Linux.
+
+./autogen.sh
+CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure --prefix=/
+make
+
+Type the following command to clean your source code:
+
+make clean
+
+32-bit
+
+Build i686-pc-linux-gnu with the following commands:
+
+PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g')
+cd depends
+make HOST=i686-pc-linux-gnu
+cd ..
+
+Type the following commands to compile your wallet for Ubuntu Linux.
+
+./autogen.sh
+CONFIG_SITE=$PWD/depends/i686-pc-linux-gnu/share/config.site ./configure --prefix=/
+make
+
+The compiled wallet for Ubuntu Linux is located in the directory src/qt, the tools are located in the directory src.
+
+
